@@ -50,3 +50,31 @@ exports.saveClock = (req, res, next) => {
     res.status(200).json({ clocks });
   });
 };
+
+exports.updateClock = (req, res, next) => {
+  const { description, timezone } = req.body;
+  const { id } = req.params;
+
+  if (!description || !timezone) {
+    return next({ status: 400, message: 'description and timezone are required fields.' });
+  }
+
+  jsonfile.readFile(PATH_TO_CLOCKS, (err, clocks) => {
+    if (err) {
+      return next({ message: 'No such file.'});
+    }
+
+    for (let i = 0; i < clocks.length; i++) {
+      if (clocks[i].id === Number(id)) {
+        clocks[i].description = description;
+        clocks[i].timezone = timezone;
+
+        writeFile(PATH_TO_CLOCKS, clocks);
+
+        return res.status(200).json({ clock: clocks[i] });
+      }
+    }
+
+    next({ status: 400, message: 'No such object.' });
+  })
+};
