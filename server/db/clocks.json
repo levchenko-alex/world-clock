@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "description": "some desc",
+    "timezone": "timezone"
+  },
+  {
+    "id": 2,
+    "timezone": "timezone",
+    "description": "some desc"
+  },
+  {
+    "id": 3,
+    "timezone": "timezone",
+    "description": "some desc"
+  },
+  {
+    "id": 4,
+    "timezone": "timezone",
+    "description": "some desc"
+  },
+  {
+    "id": 5,
+    "timezone": "timezone",
+    "description": "some desc"
+  },
+  {
+    "id": 6,
+    "timezone": "timezone",
+    "description": "some desc"
+  }
+]
