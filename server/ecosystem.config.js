@@ -4,7 +4,7 @@ module.exports = {
       name : 'world-clocks',
       script : 'server.js',
       watch: ['api', 'libs', 'config'],
-      ignore_watch : ['node_modules', '.git'],
+      ignore_watch : ['node_modules', '.git', 'db'],
       env: { NODE_PATH: './'},
       autorestart: false,
       max_restarts: 1,
