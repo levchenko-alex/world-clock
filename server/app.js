@@ -3,28 +3,38 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-
-const index = require('./routes');
-
+const fs = require('fs');
 const app = express();
 
-// uncomment after placing your favicon in /public
+const routerDir = path.join(__dirname, 'routes');
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+/**
+ * Initialize routes
+ */
 
-// catch 404 and forward to error handler
+fs.readdirSync(routerDir)
+  .forEach(file => require(path.join(routerDir, file))(app));
+
+/**
+ * Catch 404
+ */
+
 app.use(function(req, res, next) {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handler
+/**
+ * Error handler
+ */
+
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
