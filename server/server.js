@@ -1,10 +1,15 @@
 #!/usr/bin/env node
+/**
+ * Initialize dotenv config
+ */
+
+require('dotenv').config();
 
 /**
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('./api');
 var debug = require('debug')('server:server');
 var http = require('http');
 

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_PATH=./ node ./bin/www"
+    "server:start": "./node_modules/.bin/pm2 start ecosystem.config.js --name world-clocks && pm2 logs",
+    "server:stop": "./node_modules/.bin/pm2 delete ecosystem.config.js"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -13,6 +14,7 @@
     "express": "~4.15.2",
     "fs": "0.0.1-security",
     "morgan": "~1.8.1",
+    "pm2": "^2.8.0",
     "pug": "~2.0.0-beta11",
     "serve-favicon": "~2.4.2"
   }
