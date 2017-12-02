@@ -38,7 +38,7 @@ exports.saveClock = (req, res, next) => {
       createFile(PATH_TO_CLOCKS);
       writeFile(PATH_TO_CLOCKS, initialClock);
 
-      return res.status(200).json({ message: 'ok' });
+      return res.status(200).json({ clocks: initialClock });
     }
 
     const clocks = jsonfile.readFileSync(PATH_TO_CLOCKS);
@@ -47,6 +47,6 @@ exports.saveClock = (req, res, next) => {
     clocks.push({ id: ++highestId, timezone, description });
     writeFile(PATH_TO_CLOCKS, clocks);
 
-    res.status(200).json({ message: 'ok' });
+    res.status(200).json({ clocks });
   });
 };
