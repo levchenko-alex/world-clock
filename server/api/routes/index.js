@@ -1,3 +1,5 @@
+const controller = require('api/controllers');
+
 module.exports = (app) => {
-  app.get('/', (req, res) => res.status(200).json({ message: 'ok' }));
+  app.get('/api/timezones', controller.getTimezones);
 };
