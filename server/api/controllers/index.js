@@ -5,22 +5,22 @@ const PATH_TO_TIMEZONES = 'db/timezones.json';
 const PATH_TO_CLOCKS = 'db/clocks.json';
 
 exports.getTimezones = (req, res, next) => {
-  jsonfile.readFile(PATH_TO_TIMEZONES, (err, file) => {
+  jsonfile.readFile(PATH_TO_TIMEZONES, (err, timezones) => {
     if (err) {
       return next({ status: 404, message: 'No such file.' });
     }
 
-    res.status(200).json({ timezones: JSON.parse(file) });
+    res.status(200).json({ timezones });
   })
 };
 
 exports.getClocks = (req, res) => {
-  jsonfile.readFile(PATH_TO_CLOCKS, (err, file) => {
+  jsonfile.readFile(PATH_TO_CLOCKS, (err, clocks) => {
     if (err) {
       return res.status(200).json({ clocks: [] });
     }
 
-    res.status(200).json({ clocks: JSON.parse(file)});
+    res.status(200).json({ clocks });
   })
 };
 
