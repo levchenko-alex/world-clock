@@ -52,10 +52,11 @@ exports.saveClock = (req, res, next) => {
 };
 
 exports.updateClock = (req, res, next) => {
-  const { description, timezone } = req.body;
+  const { description, timezone, offset } = req.body;
   const { id } = req.params;
 
-  if (!description || !timezone) {
+  // TODO: make better!
+  if (!description || !timezone || !offset) {
     return next({ status: 400, message: 'description and timezone are required fields.' });
   }
 
@@ -68,6 +69,7 @@ exports.updateClock = (req, res, next) => {
       if (clocks[i].id === Number(id)) {
         clocks[i].description = description;
         clocks[i].timezone = timezone;
+        clocks[i].offset = offset;
 
         writeFile(PATH_TO_CLOCKS, clocks);
 
