@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Clocks from '@/components/Clocks';
+import UpdateModal from '@/components/Update_Modal';
 
 Vue.use(Router);
 
@@ -9,8 +10,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
+      name: 'root',
       component: Clocks,
+      children: [
+        {
+          path: 'update/:id',
+          component: UpdateModal,
+        }
+      ]
     },
   ],
 });

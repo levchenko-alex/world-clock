@@ -6,28 +6,38 @@
       v-bind:key="item.id"
     >
     </panel-item>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import PanelItem from "./Panel_item";
-import http from '@/http';
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: { PanelItem },
   name: 'Clocks',
-  data() {
-    return {
-      clocks: [],
-    };
+  computed: {
+    ...mapGetters([
+      'clocks',
+    ]),
   },
-  async created() {
-    try {
-      const { clocks } = await http.get('api/clocks');
-      this.clocks = clocks;
-    } catch({ message }) {
-      console.log(message);
-    }
+  methods: {
+    ...mapActions([
+      'fetchClocks',
+    ]),
+  },
+  created() {
+    this.fetchClocks();
+  },
+  watch: {
+    $route() {
+      const { isSubmit } = this.$route.params;
+
+      if (this.$route.path === '/' && isSubmit) {
+        this.fetchClocks();
+      }
+    },
   }
 };
 </script>
