@@ -1,5 +1,5 @@
 <template>
-  <div class="panel">
+  <div class="panel" @click="update">
     <div class="time">{{ time }}</div>
     <div class="timezone">{{ clock.timezone }}</div>
     <div class="description">{{ clock.description }}</div>
@@ -16,14 +16,23 @@
       }
     },
     methods: {
-      startTime() {
+      calculateTime(offset) {
         const d = new Date();
-        const { timezone: timeZone } = this.clock;
+        const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+        const localDate = new Date(utc + (3600000 * offset));
 
-        this.time = d.toLocaleTimeString(false, { timeZone });
+        return localDate.toLocaleTimeString();
+      },
+      startTime() {
+        const { offset } = this.clock;
+
+        this.time = this.calculateTime(offset);
 
         setTimeout(this.startTime, 500);
       },
+      update() {
+        this.$router.push(`update/${this.clock.id}`)
+      }
     },
     mounted() {
       this.startTime();
