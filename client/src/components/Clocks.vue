@@ -1,12 +1,18 @@
 <template>
-  <div class="wrapper">
-    <panel-item
-      v-for="item in clocks"
-      v-bind:clock="item"
-      v-bind:key="item.id"
-    >
-    </panel-item>
-    <router-view></router-view>
+  <div>
+    <div class="header">
+      <button @click="create">Create</button>
+    </div>
+    <div class="panel-wrapper">
+      <panel-item
+        v-for="item in clocks"
+        v-bind:clock="item"
+        v-bind:key="item.id"
+        :time="_time(item.offset)"
+      >
+      </panel-item>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -21,14 +27,39 @@ export default {
     ...mapGetters([
       'clocks',
     ]),
+    _time() {
+      return function(offset) {
+        return new Date(this.time + (3600000 * offset)).toLocaleTimeString();
+      }
+    }
+  },
+  data() {
+    return {
+      time: '',
+    }
   },
   methods: {
     ...mapActions([
       'fetchClocks',
     ]),
+    calculateTime() {
+      const d = new Date();
+      return d.getTime() + (d.getTimezoneOffset() * 60000);
+    },
+    startTime() {
+      this.time = this.calculateTime();
+
+      setTimeout(this.startTime, 500);
+    },
+    create() {
+      this.$router.push('/create-clock');
+    },
   },
   created() {
     this.fetchClocks();
+  },
+  mounted() {
+    this.startTime();
   },
   watch: {
     $route() {
@@ -43,9 +74,13 @@ export default {
 </script>
 
 <style scoped>
-  .wrapper {
+  .panel-wrapper {
     display: flex;
     flex-direction: row;
+  }
+
+  .header {
+    margin-bottom: 20px;
   }
 </style>
 

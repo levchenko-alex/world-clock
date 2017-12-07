@@ -25,13 +25,14 @@ exports.getClocks = (req, res) => {
 };
 
 exports.saveClock = (req, res, next) => {
-  const { description, timezone } = req.body;
+  const { description, timezone, offset } = req.body;
 
-  if (!description || !timezone) {
+  // TODO: make better
+  if (!description || !timezone || !offset ) {
     return next({ status: 400, message: 'description and timezone are required fields' });
   }
 
-  const initialClock = [{ id: 1, description, timezone }];
+  const initialClock = [{ id: 1, description, timezone, offset }];
 
   jsonfile.readFile(PATH_TO_CLOCKS, err => {
     if (err) {
@@ -44,7 +45,7 @@ exports.saveClock = (req, res, next) => {
     const clocks = jsonfile.readFileSync(PATH_TO_CLOCKS);
     let highestId = Math.max(...clocks.map(({ id }) => id));
 
-    clocks.push({ id: ++highestId, timezone, description });
+    clocks.push({ id: ++highestId, timezone, description, offset });
     writeFile(PATH_TO_CLOCKS, clocks);
 
     res.status(200).json({ clocks });

@@ -34,7 +34,7 @@
         isSubmit: true,
         ownClocks: [],
         description: '',
-        timezone: {},
+        timezone: null,
       }
     },
     computed: {
