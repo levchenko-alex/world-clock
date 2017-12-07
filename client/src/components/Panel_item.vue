@@ -20,11 +20,13 @@
 
 <style scoped>
   .panel {
-    border: 1px solid black;
-    margin-right: 10px;
-    text-align: center;
-    padding: 5px;
     min-height: 50px;
+    max-width: 300px;
+    min-width: 100px;
+    margin: 0 10px 10px 0;
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
   }
 
   .panel:hover {
@@ -45,5 +47,8 @@
   .description {
     color: darkgrey;
     font-style: italic;
+    margin-bottom: 30px;
+    text-align: left;
+    word-wrap: break-word;
   }
 </style>

@@ -1,33 +1,43 @@
 <template>
   <modal
+    class="pure-u-1"
     height="auto"
     name="update"
     @closed="onCloseEvent"
     :clickToClose="false"
   >
     <div class="modal">
-      <h1>Update clock</h1>
-      <v-select
-        v-if="selectedClock"
-        label="timezone"
-        :options="timezones"
-        v-model="timezone"
-        class="select"
-      ></v-select>
-      <textarea
-        v-focus
-        name="description"
-        v-if="selectedClock"
-        cols="30"
-        v-model="description"
-        rows="10"
-        v-validate="rules"
-      >
-        {{ selectedClock.description }}
-      </textarea>
-      <p v-show="errors.has('description')" class="help is-danger">{{ errors.first('description') }}</p>
-      <button @click="onClose">Cancel</button>
-      <button @click="onSubmit">Submit</button>
+      <div class="pure-u-1">
+        <h1>Edit clock</h1>
+      </div>
+      <div class="pure-u-1">
+        <v-select
+          v-if="selectedClock"
+          label="timezone"
+          :options="timezones"
+          v-model="timezone"
+          class="select"
+        >
+        </v-select>
+      </div>
+      <div class="pure-u-1">
+        <textarea
+          v-focus
+          name="description"
+          v-if="selectedClock"
+          cols="30"
+          v-model="description"
+          rows="10"
+          v-validate="rules"
+        >
+          {{ selectedClock.description }}
+        </textarea>
+        <p class="help is-danger">{{ errors.first('description') }}</p>
+      </div>
+      <div class="pure-u-1 pure-control-group">
+        <button class="pure-button pure-button-primary" @click="onSubmit">Submit</button>
+        <button class="pure-button pure-button-primary" @click="onClose">Cancel</button>
+      </div>
     </div>
   </modal>
 </template>
@@ -121,10 +131,7 @@
 </script>
 
 <style scoped>
-  .modal {
-    padding: 30px;
-  }
   .select {
-    width: 350px;
+    width: 100%;
   }
 </style>
