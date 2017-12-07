@@ -5,7 +5,7 @@
       <div class="sort-by">
         <label>Sort by: </label>
         <v-select
-          class="select"
+          class="sort-select"
           :options="sortOptions"
           label="label"
           v-model="sortBy"
@@ -24,7 +24,7 @@
         >
         </panel-item>
       </div>
-      <router-view></router-view>
+      <router-view class="pure-g"></router-view>
     </div>
   </div>
 </template>
@@ -128,7 +128,7 @@ export default {
     margin-right: 5px;
   }
 
-  .select {
+  .sort-select {
     width: 300px;
   }
 </style>
