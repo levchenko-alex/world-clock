@@ -14,7 +14,18 @@
         v-model="timezone"
         class="select"
       ></v-select>
-      <textarea v-if="selectedClock" cols="30" v-model="description" rows="10">{{ selectedClock.description }}</textarea>
+      <textarea
+        v-focus
+        name="description"
+        v-if="selectedClock"
+        cols="30"
+        v-model="description"
+        rows="10"
+        v-validate="rules"
+      >
+        {{ selectedClock.description }}
+      </textarea>
+      <p v-show="errors.has('description')" class="help is-danger">{{ errors.first('description') }}</p>
       <button @click="onClose">Cancel</button>
       <button @click="onSubmit">Submit</button>
     </div>
@@ -24,10 +35,14 @@
 <script>
   import { mapGetters, mapActions } from 'vuex';
   import vSelect from 'vue-select'
-  import http from '@/http';
+  import http from '@/utils/http';
+  import { focus } from "@/utils/directives";
+  import { descriptionsRules } from "@/utils/validation_config";
+
 
   export default {
     components: { vSelect },
+    directives: { focus },
     name: "update-modal",
     data() {
       return {
@@ -35,6 +50,7 @@
         ownClocks: [],
         description: '',
         timezone: null,
+        rules: descriptionsRules,
       }
     },
     computed: {
@@ -62,6 +78,10 @@
         this.$modal.hide('update');
       },
       async onSubmit() {
+        if (this.errors.has('description')) {
+          return;
+        }
+
         try {
           const values = Object.assign({}, this.timezone, { description: this.description });
           const id = Number(this.$route.params['id']);
