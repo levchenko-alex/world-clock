@@ -75,19 +75,22 @@
         this.$modal.hide('create');
       },
       async onSubmit() {
+        if (this.errors.has('description')) {
+          return;
+        }
+
         try {
-          if (this.errors.has('description')) {
-            console.log('error');
-            return;
-          }
           const values = Object.assign({}, this.timezone, { description: this.description } );
-          console.log('succ');
           await http.post('api/clock', values);
 
           this.$modal.hide('create');
         } catch({ message }) {
-          // TODO: notification
-          console.log(message);
+          this.$notify({
+            group: 'app',
+            title: 'Error',
+            type: 'error',
+            text: message,
+          });
         }
       }
     },

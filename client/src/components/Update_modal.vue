@@ -99,7 +99,12 @@
           await http.put(`api/clock/${id}`, values);
           this.$modal.hide('update');
         } catch({ message }) {
-          console.log(message); // TODO notification
+          this.$notify({
+            group: 'app',
+            title: 'Error',
+            type: 'error',
+            text: message,
+          });
         }
       },
       getClock(clocks) {

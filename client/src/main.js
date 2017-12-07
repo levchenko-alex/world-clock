@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import VModal from 'vue-js-modal'
 import VeeValidate from 'vee-validate';
+import Notifications from 'vue-notification';
 import PureCss from 'purecss';
 import store from './store';
 import App from './App';
@@ -12,6 +13,7 @@ import router from './router';
 Vue.config.productionTip = false;
 Vue.use(VModal);
 Vue.use(VeeValidate);
+Vue.use(Notifications);
 
 /* eslint-disable no-new */
 new Vue({

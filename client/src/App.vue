@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view />
+    <notifications class="notify" position="top center" group="app" />
   </div>
 </template>
 
@@ -33,5 +34,9 @@ export default {
 
   .modal {
     padding: 30px;
+  }
+
+  .notify {
+    margin-top: 20px;
   }
 </style>
