@@ -44,10 +44,10 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex';
-  import vSelect from 'vue-select'
+  import vSelect from 'vue-select';
   import http from '@/utils/http';
-  import { focus } from "@/utils/directives";
-  import { descriptionsRules } from "@/utils/validation_config";
+  import { focus } from '@/utils/directives';
+  import { descriptionsRules } from '@/utils/validation_config';
 
 
   export default {

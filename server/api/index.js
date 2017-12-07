@@ -4,24 +4,28 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const cors = require('cors');
 const errorHandler = require('libs/server_errors_handler');
+const history = require('connect-history-api-fallback');
 const app = express();
 
 const routerDir = path.join(__dirname, 'routes');
+const PATH_TO_CLIENT = '../../client/dist';
 
-/**
- * Cors
- */
-
-app.use(cors());
+app.use(history());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, PATH_TO_CLIENT)));
 
+/**
+ * Send index.html
+ */
+
+app.get('/',(req, res) => {
+  res.sendfile(path.join(__dirname, PATH_TO_CLIENT, 'index.html'));
+});
 
 /**
  * Initialize routes

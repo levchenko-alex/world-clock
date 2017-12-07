@@ -9,7 +9,7 @@
           :options="sortOptions"
           label="label"
           v-model="sortBy"
-          placeholder="Chose sort type..."
+          placeholder="Select sort type..."
         >
         </v-select>
       </div>
@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import PanelItem from "./Panel_item";
-import vSelect from 'vue-select'
-import { mapGetters, mapActions } from 'vuex'
+import PanelItem from '@/components/PanelItem';
+import vSelect from 'vue-select';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   components: { PanelItem, vSelect },
@@ -42,9 +42,9 @@ export default {
       'clocks',
     ]),
     _time() {
-      return function(offset) {
+      return function (offset) {
         return new Date(this.time + (3600000 * offset)).toLocaleTimeString();
-      }
+      };
     },
   },
   data() {
@@ -54,8 +54,8 @@ export default {
       sortOptions: [
         { label: 'description' },
         { label: 'timezone' },
-      ]
-    }
+      ],
+    };
   },
   methods: {
     ...mapActions([
@@ -95,8 +95,8 @@ export default {
       if (value) {
         this.sortClocks(value.label);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

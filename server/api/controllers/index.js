@@ -27,8 +27,9 @@ exports.getClocks = (req, res) => {
 exports.saveClock = (req, res, next) => {
   const { description, timezone, offset } = req.body;
 
-  // TODO: make better
-  if (!description || !timezone || !offset ) {
+  const checkFields = [description, timezone, offset].every(field => field);
+
+  if (!checkFields) {
     return next({ status: 400, message: 'description and timezone are required fields' });
   }
 
@@ -56,8 +57,9 @@ exports.updateClock = (req, res, next) => {
   const { description, timezone, offset } = req.body;
   const { id } = req.params;
 
-  // TODO: make better!
-  if (!description || !timezone || !offset) {
+  const checkFields = [description, timezone, offset].every(field => field);
+
+  if (!checkFields) {
     return next({ status: 400, message: 'description and timezone are required fields.' });
   }
 

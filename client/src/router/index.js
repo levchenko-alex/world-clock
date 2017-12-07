@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Clocks from '@/components/Clocks';
-import UpdateModal from '@/components/Update_Modal';
+import UpdateModal from '@/components/UpdateModal';
 import CreateModal from '@/components/CreateModal';
 
 Vue.use(Router);
