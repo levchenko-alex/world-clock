@@ -9,34 +9,12 @@
 <script>
   export default {
     name: "panel-item",
-    props: ['clock'],
-    data() {
-      return {
-        time: '',
-      }
-    },
+    props: ['clock', 'time'],
     methods: {
-      calculateTime(offset) {
-        const d = new Date();
-        const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-        const localDate = new Date(utc + (3600000 * offset));
-
-        return localDate.toLocaleTimeString();
-      },
-      startTime() {
-        const { offset } = this.clock;
-
-        this.time = this.calculateTime(offset);
-
-        setTimeout(this.startTime, 500);
-      },
       update() {
         this.$router.push(`update/${this.clock.id}`)
       }
     },
-    mounted() {
-      this.startTime();
-    }
   }
 </script>
 
