@@ -3,9 +3,11 @@
 import Vue from 'vue';
 import VModal from 'vue-js-modal'
 import VeeValidate from 'vee-validate';
+import PureCss from 'purecss';
 import store from './store';
 import App from './App';
 import router from './router';
+
 
 Vue.config.productionTip = false;
 Vue.use(VModal);
@@ -17,5 +19,5 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App },
+  components: { App, PureCss },
 });

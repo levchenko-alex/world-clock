@@ -22,6 +22,7 @@
   .panel {
     border: 1px solid black;
     margin-right: 10px;
+    margin-bottom: 10px;
     text-align: center;
     padding: 5px;
     min-height: 50px;
