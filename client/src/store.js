@@ -41,11 +41,14 @@ const actions = {
         break;
       case 'description':
         sortedClocks = state.clocks.sort((a, b) => {
-          if (a.description < b.description) {
+          const descA = a.description.toUpperCase();
+          const descB = b.description.toUpperCase();
+
+          if (descA < descB) {
             return -1;
           }
 
-          if (a.description > b.description) {
+          if (descA > descB) {
             return 1;
           }
 
