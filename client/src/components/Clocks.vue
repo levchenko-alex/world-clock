@@ -2,6 +2,13 @@
   <div>
     <div class="header">
       <button @click="create">Create</button>
+      <v-select
+        :options="sortOptions"
+        label="label"
+        v-model="sortBy"
+        placeholder="Chose sort type..."
+      >
+      </v-select>
     </div>
     <div class="panel-wrapper">
       <panel-item
@@ -18,10 +25,11 @@
 
 <script>
 import PanelItem from "./Panel_item";
+import vSelect from 'vue-select'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  components: { PanelItem },
+  components: { PanelItem, vSelect },
   name: 'Clocks',
   computed: {
     ...mapGetters([
@@ -31,19 +39,26 @@ export default {
       return function(offset) {
         return new Date(this.time + (3600000 * offset)).toLocaleTimeString();
       }
-    }
+    },
   },
   data() {
     return {
       time: '',
+      sortBy: '',
+      sortOptions: [
+        { label: 'description' },
+        { label: 'timezone' },
+      ]
     }
   },
   methods: {
     ...mapActions([
       'fetchClocks',
+      'sortClocks',
     ]),
     calculateTime() {
       const d = new Date();
+
       return d.getTime() + (d.getTimezoneOffset() * 60000);
     },
     startTime() {
@@ -66,9 +81,15 @@ export default {
       const { isSubmit } = this.$route.params;
 
       if (this.$route.path === '/' && isSubmit) {
+        this.sortBy = '';
         this.fetchClocks();
       }
     },
+    sortBy(value) {
+      if (value) {
+        this.sortClocks(value.label);
+      }
+    }
   }
 };
 </script>

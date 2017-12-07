@@ -16,6 +16,9 @@ const mutations = {
   },
   FETCH_TIMEZONES(state, timezones) {
     state.timezones = timezones;
+  },
+  SORT(state, clocks) {
+    state.clocks = clocks;
   }
 };
 
@@ -29,6 +32,28 @@ const actions = {
       const { timezones } = await http.get('api/timezones');
       commit('FETCH_TIMEZONES', timezones);
     }
+  },
+  sortClocks({ commit }, sortBy) {
+    let sortedClocks = [];
+    switch(sortBy) {
+      case 'timezone':
+        sortedClocks = state.clocks.sort((a, b) => a.offset - b.offset);
+        break;
+      case 'description':
+        sortedClocks = state.clocks.sort((a, b) => {
+          if (a.description < b.description) {
+            return -1;
+          }
+
+          if (a.description > b.description) {
+            return 1;
+          }
+
+          return 0;
+        });
+        break;
+    }
+    commit('SORT', sortedClocks);
   }
 };
 
