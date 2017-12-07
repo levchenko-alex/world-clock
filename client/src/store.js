@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import http from '@/http';
+import http from '@/utils/http';
 
 Vue.use(Vuex);
 
@@ -25,8 +25,10 @@ const actions = {
     commit('FETCH_CLOCKS', clocks);
   },
   async fetchTimezones({ commit }) {
-    const { timezones } = await http.get('api/timezones');
-    commit('FETCH_TIMEZONES', timezones);
+    if (!state.timezones.length) {
+      const { timezones } = await http.get('api/timezones');
+      commit('FETCH_TIMEZONES', timezones);
+    }
   }
 };
 
